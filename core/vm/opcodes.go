@@ -204,6 +204,11 @@ const (
 	LOG4
 )
 
+const (
+	DUPE OpCode = 0xa5 + iota
+	SWAPE
+)
+
 // 0xf0 range - closures.
 const (
 	CREATE       OpCode = 0xf0

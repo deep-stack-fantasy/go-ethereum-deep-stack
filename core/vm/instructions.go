@@ -906,12 +906,32 @@ func makeDup(size int64) executionFunc {
 	}
 }
 
+func makeDupE() executionFunc {
+	return func(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+		size := int(*pc + 1)
+		scope.Stack.dup(size)
+		*pc += 1
+		return nil, nil
+	}
+}
+
 // make swap instruction function
 func makeSwap(size int64) executionFunc {
 	// switch n + 1 otherwise n would be swapped with n
 	size++
 	return func(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
 		scope.Stack.swap(int(size))
+		return nil, nil
+	}
+}
+
+func makeSwapE() executionFunc {
+	// switch n + 1 otherwise n would be swapped with n
+	return func(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
+		size := int(*pc + 1)
+		size++
+		scope.Stack.swap(size)
+		*pc += 1
 		return nil, nil
 	}
 }
