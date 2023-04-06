@@ -780,7 +780,7 @@ func newFrontierInstructionSet() JumpTable {
 			execute:     makeDupE(),
 			constantGas: GasFastestStep,
 			minStack:    0,
-			maxStack:    1024, // the maximum stack size
+			maxStack:    int(params.StackLimit),
 		},
 		DUP1: {
 			execute:     makeDup(1),
@@ -882,7 +882,7 @@ func newFrontierInstructionSet() JumpTable {
 			execute:     makeSwapE(),
 			constantGas: GasFastestStep,
 			minStack:    0,
-			maxStack:    1024, // the maximum stack size
+			maxStack:    int(params.StackLimit),
 		},
 		SWAP1: {
 			execute:     makeSwap(1),
