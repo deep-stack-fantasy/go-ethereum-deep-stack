@@ -908,9 +908,9 @@ func makeDup(size int64) executionFunc {
 
 func makeDupE() executionFunc {
 	return func(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
-		size := int(*pc + 1)
+		*pc++
+		size := int(scope.Contract.Code[*pc])
 		scope.Stack.dup(size)
-		*pc += 1
 		return nil, nil
 	}
 }
@@ -928,10 +928,9 @@ func makeSwap(size int64) executionFunc {
 func makeSwapE() executionFunc {
 	// switch n + 1 otherwise n would be swapped with n
 	return func(pc *uint64, interpreter *EVMInterpreter, scope *ScopeContext) ([]byte, error) {
-		size := int(*pc + 1)
-		size++
+		*pc++
+		size := int(scope.Contract.Code[*pc])
 		scope.Stack.swap(size)
-		*pc += 1
 		return nil, nil
 	}
 }
